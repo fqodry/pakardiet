@@ -76,16 +76,19 @@
                 echo '<p class="alert alert-'. $flash_message['type'] .'" id="flash_message"><b>'. $flash_message['msg'] .'</b></p>';
               }
             ?>
-            <form>
+            <form action="<?php echo $form_register; ?>" method="post">
               <h1>Create Account</h1>
               <div>
-                <input type="text" class="form-control" name="reg_username" placeholder="Username" required="" />
+                <?php echo form_error('reg_username'); ?>
+                <input type="text" class="form-control" name="reg_username" placeholder="Username" value="<?php echo set_value('reg_username'); ?>" required />
               </div>
               <div>
-                <input type="password" class="form-control" name="reg_password" placeholder="Password" required="" />
+                <?php echo form_error('reg_password'); ?>
+                <input type="password" class="form-control" name="reg_password" placeholder="Password" value="<?php echo set_value('reg_password'); ?>" required />
               </div>
               <div>
-                <input type="password" class="form-control" name="reg_repassword" placeholder="Retype Password" required="" />
+                <?php echo form_error('reg_repassword'); ?>
+                <input type="password" class="form-control" name="reg_repassword" placeholder="Retype Password" value="<?php echo set_value('reg_repassword'); ?>" required />
               </div>
               <div>
                 <button type="submit" class="btn btn-warning">Submit</button>
