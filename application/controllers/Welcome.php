@@ -13,7 +13,11 @@ class Welcome extends CI_Controller {
 
 	function dashboard(){
 		if(isset($this->session->userdata['logged_in'])) {
-			$this->load->view('welcome_message');
+			$data['title'] = "Pakar Diet Dashboard";
+			$data['user_id'] = $this->session->userdata['logged_in']['user_id'];
+			$data['username'] = $this->session->userdata['logged_in']['username'];
+
+			$this->load->view('welcome_message',$data);
 		} else {
 			// set flashdata
 			$flash_msg = array(

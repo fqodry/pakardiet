@@ -118,7 +118,17 @@ class Login extends CI_Controller {
 			array(
 				'field'	=> 'reg_username',
 				'label'	=> 'Username',
-				'rules'	=> 'trim|required|min_length[4]'
+				'rules'	=> 'trim|required|min_length[4]|xss_clean'
+			),
+			array(
+				'field'	=> 'reg_firstname',
+				'label'	=> 'First Name',
+				'rules'	=>	'trim|required|max_length[50]|xss_clean'
+			),
+			array(
+				'field'	=> 'reg_lastname',
+				'label'	=> 'Last Name',
+				'rules'	=>	'trim|required|max_length[100]|xss_clean'
 			),
 			array(
 				'field'	=>	'reg_password',
@@ -150,10 +160,14 @@ class Login extends CI_Controller {
 			$user_id = $this->generateUserId();
 			$username = $this->input->post('reg_username');
 			$password = $this->bcrypt->hash_password($this->input->post('reg_password'));
+			$firstname = $this->input->post('reg_firstname');
+			$lastname = $this->input->post('reg_lastname');
 			$data_user = array(
 				'user_id'=>$user_id,
 				'username'=>$username,
-				'password'=>$password
+				'password'=>$password,
+				'first_name'=>$firstname,
+				'last_name'=>$lastname
 			);
 			$this->Default_md->add('tb_user',$data_user);
 			$this->Default_md->add('tb_ref_user_role',array('user_id'=>$user_id, 'role_code'=>'ROLE_USER'));
