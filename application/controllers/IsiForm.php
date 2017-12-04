@@ -1,17 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class IsiForm extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
 	}
 
 	public function index(){
-		$this->dashboard();
+		$this->isiForm();
 	}
 
-	function dashboard(){
+	function isiForm(){
 		if(isset($this->session->userdata['logged_in'])) {
 			$data['title'] = "Pakar Diet - Dashboard";
 			$data['user_id'] = $this->session->userdata['logged_in']['user_id'];
@@ -25,9 +25,10 @@ class Welcome extends CI_Controller {
 			} else {
 				$data['admin_zone'] = false;
 			}
+			$data['form_pakar'] = base_url() . "isiform/formpakarHandler";
 
 			$this->load->view('template/header',$data);
-			$this->load->view('welcome_message',$data);
+			$this->load->view('isiform',$data);
 		} else {
 			// set flashdata
 			$flash_msg = array(
@@ -38,5 +39,9 @@ class Welcome extends CI_Controller {
 
 			redirect(base_url().'login');
 		}
+	}
+
+	function formpakarHandler() {
+		
 	}
 }

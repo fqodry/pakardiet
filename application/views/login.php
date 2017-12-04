@@ -83,6 +83,14 @@
                 <input type="text" class="form-control" name="reg_username" placeholder="Username" value="<?php echo set_value('reg_username'); ?>" required />
               </div>
               <div>
+                <?php echo form_error('reg_firstname'); ?>
+                <input type="text" class="form-control" name="reg_firstname" placeholder="First Name" value="<?php echo set_value('reg_firstname'); ?>" required />
+              </div>
+              <div>
+                <?php echo form_error('reg_lastname'); ?>
+                <input type="text" class="form-control" name="reg_lastname" placeholder="Last Name" value="<?php echo set_value('reg_lastname'); ?>" required />
+              </div>
+              <div>
                 <?php echo form_error('reg_password'); ?>
                 <input type="password" class="form-control" name="reg_password" placeholder="Password" value="<?php echo set_value('reg_password'); ?>" required />
               </div>

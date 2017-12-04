@@ -84,7 +84,10 @@ class Login extends CI_Controller {
 					$session_data = array(
 						'user_id'		=> $userdb->user_id,
 						'username'		=> $userdb->username,
-						'is_enabled'	=> $userdb->is_enabled
+						'first_name'	=> $userdb->first_name,
+						'last_name'		=> $userdb->last_name,
+						'is_enabled'	=> $userdb->is_enabled,
+						'user_role'		=> $ref_userrole->role_code
 					);
 					// add user data in session
 					$this->session->set_userdata('logged_in',$session_data);
