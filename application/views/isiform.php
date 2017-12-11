@@ -3,20 +3,26 @@
           <div class="">
             <div class="row">
               <div class="col-md-6 col-md-offset-3">
+                <?php 
+                    $flash_message = $this->session->flashdata('handler_msg');
+                    if( ! empty($flash_message) ) {
+                    echo '<p class="alert alert-'. $flash_message['type'] .'" id="flash_message"><b>'. $flash_message['msg'] .'</b></p>';
+                    }
+                ?>
                 <h3>Form Input Sistem Pakar</h3><br/>
                 <p class="col-md-12">Hai <strong><?php echo ucwords(strtolower($first_name." ".$last_name)); ?></strong>! Silahkan isi form berikut untuk mengetahui IMT (Indeks Masa Tubuh), Berat Badan Ideal, dan menu anjuran dari Pakar Gizi terkemuka <strong>Bp. Ujang Marujang, S.Tr.Gz</strong>. Silahkan mencoba!</p>
                 <form action="<?php echo $form_pakar; ?>" method="post">
                     <div class="form-group">
                         <label for="">Berat Badan <small style="color: red;">(kg)</small></label>
-                        <input type="number" class="form-control" id="beratbadan" name="beratbadan" placeholder="Berat Badan" required /> <code></code>
+                        <input type="number" class="form-control" id="beratbadan" name="beratbadan" placeholder="Berat Badan" min="0" required /> <code></code>
                     </div>
                     <div class="form-group">
                         <label for="">Tinggi Badan <small style="color: red;">(cm)</small></label>
-                        <input type="number" class="form-control" id="tinggibadan" name="tinggibadan" placeholder="Tinggi Badan" required />
+                        <input type="number" class="form-control" id="tinggibadan" name="tinggibadan" placeholder="Tinggi Badan" min="0" required />
                     </div>
                     <div class="form-group">
                         <label for="">Usia <small style="color: red;">(thn)</small></label>
-                        <input type="number" class="form-control" id="usia" name="usia" placeholder="Usia" required />
+                        <input type="number" class="form-control" id="usia" name="usia" placeholder="Usia" min="0" required />
                     </div>
                     <div class="radio">
                         <p><strong>Jenis Kelamin</strong></p>
@@ -29,15 +35,12 @@
                         </label>
                     </div>
                     <div class="form-group">
-                        <label for="">Aktifitas</label>
-                        <select name="aktifitas" id="aktifitas" class="form-control" required>
+                        <label for="">Pekerjaan</label>
+                        <select name="pekerjaan" id="pekerjaan" class="form-control" required>
                             <option value="none">-Pilih-</option>
-                            <option value="none">Pelajar</option>
-                            <option value="none">Mahasiswa</option>
-                            <option value="none">Pekerja Kantoran</option>
-                            <option value="none">Pekerja Lapangan</option>
-                            <option value="none">Ibu Rumah Tangga</option>
-                            <option value="none">Pengangguran</option>
+                            <?php foreach($jobs as $job): ?>
+                            <option value="<?php echo $job->job_id ?>"><?php echo $job->job_name; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-success">Submit</button>

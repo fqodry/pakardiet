@@ -58,7 +58,7 @@ class Login extends CI_Controller {
 			} else {
 				// set flashdata
 				$flash_msg = array(
-					'msg'		=> validation_errors(),
+					'msg'	=> validation_errors(),
 					'type'	=> "danger"
 				);
 				$this->session->set_flashdata('handler_msg',$flash_msg);
