@@ -2,7 +2,13 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="row">
-              <h1>Hello World</h1>
+                <?php 
+                    $flash_message = $this->session->flashdata('handler_msg');
+                    if( ! empty($flash_message) ) {
+                    echo '<p class="alert alert-'. $flash_message['type'] .'" id="flash_message"><b>'. $flash_message['msg'] .'</b></p>';
+                    }
+                ?>
+                <h1>Hello World</h1>
             </div>
           </div>
         </div>

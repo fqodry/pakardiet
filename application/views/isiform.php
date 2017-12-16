@@ -35,8 +35,8 @@
                         </label>
                     </div>
                     <div class="form-group">
-                        <label for="">Pekerjaan</label>
-                        <select name="pekerjaan" id="pekerjaan" class="form-control" required>
+                        <label for="">Aktifitas</label>
+                        <select name="aktifitas" id="aktifitas" class="form-control" required>
                             <option value="none">-Pilih-</option>
                             <?php foreach($jobs as $job): ?>
                             <option value="<?php echo $job->job_id ?>"><?php echo $job->job_name; ?></option>

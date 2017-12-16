@@ -11,17 +11,33 @@
                 ?>
                 <h3>Result Data</h3><br/>
                 <div class="table-responsive">
-                    <table class="table table-condensed table-bordered">
+                    <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
-                                <th colspan="2" style="text-align: center;">RESULT</th>
+                                <th colspan="3" class="text-center">RESULT</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td><strong>Nama:</strong></td>
+                                <td colspan="2" class="text-center"><?php echo $first_name." ".$last_name ?></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Umur:</strong></td>
+                                <td colspan="2" class="text-center"><?php echo $usia." thn" ?></td>
+                            </tr>
+                            <tr>
                                 <td><strong>BB Ideal:</strong></td>
-                                <td><strong></strong></td>
-
+                                <td><?php echo number_format($bbideal,1,",",".")." kg (".number_format($bbideal_lbs,2,",",".")." lbs)" ?></td>
+                                <td rowspan="3"><strong><?php echo $bb_ket; ?></strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Indeks Masa Tubuh:</strong></td>
+                                <td><?php echo number_format($imt,2,",",".") ?></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Kebutuhan Kalori:</strong></td>
+                                <td><?php echo number_format($kebutuhan_kalori,2,",",".")." cal" ?></td>
                             </tr>
                         </tbody>
                     </table>

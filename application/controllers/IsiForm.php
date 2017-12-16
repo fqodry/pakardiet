@@ -67,8 +67,8 @@ class IsiForm extends CI_Controller {
 				'rules'	=> 'trim|required|xss_clean'
 			),
 			array(
-				'field'	=> 'pekerjaan',
-				'label'	=> 'Pekerjaan',
+				'field'	=> 'aktifitas',
+				'label'	=> 'Aktifitas',
 				'rules'	=> 'trim|required|xss_clean'
 			)
 		);
@@ -82,7 +82,7 @@ class IsiForm extends CI_Controller {
 					'type'	=> "danger"
 				);
 				$this->session->set_flashdata('handler_msg',$flash_msg);
-				redirect(base_url().'login');
+				redirect(base_url().'isiform');
 			} else {
 				// set flashdata
 				$flash_msg = array(
@@ -107,18 +107,21 @@ class IsiForm extends CI_Controller {
 				$data['admin_zone'] = false;
 			}
 
-			$beratbadan = $this->input->post('beratbadan');
-			$tinggibadan = $this->input->post('tinggibadan');
-			$usia = $this->input->post('usia');
+			(float)$beratbadan = $this->input->post('beratbadan');
+			$data['beratbadan'] = $beratbadan;
+			(float)$tinggibadan = $this->input->post('tinggibadan');
+			$data['tinggibadan'] = $tinggibadan;
+			(int)$usia = $this->input->post('usia');
+			$data['usia'] = $usia;
 			$jeniskelamin = $this->input->post('jeniskelamin');
-			$pekerjaan = $this->input->post('pekerjaan');
-
-			$data['form_pakar'] = base_url() . "isiform/formpakarHandler";
-			$data['jobs'] = $this->Default_md->getAll('m_pekerjaan');
+			$data['jeniskelamin'] = $jeniskelamin;
+			$aktifitas = $this->input->post('aktifitas');
+			$data['aktifitas'] = $aktifitas;
 
 			// HITUNG BB IDEAL
 			(float)$bbideal = ( (int)$tinggibadan - 100 ) - (10/100);
 			$data['bbideal'] = $bbideal;
+			$data['bbideal_lbs'] = $bbideal*2.2046226218;
 
 			// HITUNG IMT
 			(float)$imt = (int)$beratbadan / pow(((int)$tinggibadan/100), 2);
@@ -135,14 +138,55 @@ class IsiForm extends CI_Controller {
 			}
 			$data['kebutuhan_kalori'] = $kebutuhan_kalori;
 
-			echo "BB Ideal = ".$bbideal."<br/>";
-			echo "IMT = ".$imt."<br/>";
-			echo "Kebutuhan Kalori = ".$kebutuhan_kalori;
+			// KETERANGAN2
+			$bb_ket = "tidak ada keterangan";
+			if($imt < 18.5){
+				$bb_ket = "Berat Badan Kurang";
+			}elseif($imt >= 18.5 && $imt <= 24.9) {
+				$bb_ket = "Berat Badan Ideal";
+			}elseif($imt >= 25 && $imt <= 29.9) {
+				$bb_ket = "Berat Badan Lebih";
+			}elseif($imt >= 30 && $imt <=39.9) {
+				$bb_ket = "Gemuk";
+			}else{
+				$bb_ket = "Sangat Gemuk";
+			}
+			$data['bb_ket'] = $bb_ket;
+
+			$histform_id = $this->generateFormId();
+			// input form data
+			$data_form = array(
+				'histform_id' 	=> $histform_id,
+				'user_id' 		=> $data['user_id'],
+				'berat_badan' 	=> $beratbadan,
+				'tinggi_badan' 	=> $tinggibadan,
+				'usia' 			=> $usia,
+				'jenis_kelamin'	=> $jeniskelamin,
+				'job' 			=> $aktifitas,
+				'created_by' 	=> $data['username']
+			);
+			$this->Default_md->add('tb_hist_formpakar',$data_form);
+
+			// input form result data
+			$data_result = array(
+				'histform_id' 		=> $histform_id,
+				'bb_ideal' 			=> $bbideal,
+				'imt' 				=> $imt,
+				'kebutuhan_kalori' 	=> $kebutuhan_kalori,
+				'created_by' 		=> $data['username']
+			);
+			$this->Default_md->add('tb_hist_formpakar_result',$data_result);
 
 			$this->load->view('template/header',$data);
 			$this->load->view('hitungkalori',$data);
 		}
 	}
 
-
+	function generateFormId() {
+		$this->load->model('Hist_formpakar_md');
+		$max_id = $this->Hist_formpakar_md->maxId();
+		$next_id = $max_id->id + 1;
+		$next_formid = "FP".str_pad($next_id, 4, '0', STR_PAD_LEFT);
+		return $next_formid;
+	}
 }

@@ -25,6 +25,8 @@
     
     <!-- Custom Theme Style -->
     <link href="assets/css/custom.min.css" rel="stylesheet">
+    <!-- Pakardiet CSS -->
+    <link rel="stylesheet" href="assets/css/pakardiet.css">
   </head>
   
   <body class="nav-md">
