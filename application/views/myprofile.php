@@ -9,47 +9,31 @@
                     echo '<p class="alert alert-'. $flash_message['type'] .'" id="flash_message"><b>'. $flash_message['msg'] .'</b></p>';
                     }
                 ?>
-                <h3>Result Data</h3><br/>
+                
                 <div class="table-responsive">
                     <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
-                                <th colspan="3" class="text-center">RESULT</th>
+                                <th colspan="2" style="text-align: center;">My Profile</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>Nama:</strong></td>
-                                <td colspan="2" class="text-center"><?php echo $first_name." ".$last_name ?></td>
+                                <td><strong>User ID</strong></td>
+                                <td><?php echo $user->user_id ?></td>
                             </tr>
                             <tr>
-                                <td><strong>Umur:</strong></td>
-                                <td colspan="2" class="text-center"><?php echo $usia." thn" ?></td>
+                                <td><strong>Username</strong></td>
+                                <td><?php echo $user->username ?></td>
                             </tr>
                             <tr>
-                                <td><strong>Berat Badan:</strong></td>
-                                <td colspan="2" class="text-center"><?php echo number_format($beratbadan,0,",",".")." kg (".number_format($beratbadan_lbs,1,",",".")." lbs)" ?></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Tinggi Badan:</strong></td>
-                                <td colspan="2" class="text-center"><?php echo number_format($tinggibadan,0,",",".")." cm" ?></td>
-                            </tr>
-                            <tr>
-                                <td><strong>BB Ideal:</strong></td>
-                                <td><?php echo number_format($bbideal,1,",",".")." kg (".number_format($bbideal_lbs,2,",",".")." lbs)" ?></td>
-                                <td rowspan="3" style="vertical-align: middle; text-align: center;"><strong><?php echo $bb_ket; ?></strong></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Indeks Masa Tubuh:</strong></td>
-                                <td><?php echo number_format($imt,2,",",".") ?></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Kebutuhan Kalori:</strong></td>
-                                <td><?php echo number_format($kebutuhan_kalori,2,",",".")." cal" ?></td>
+                                <td><strong>Name</strong></td>
+                                <td><?php echo ucwords(strtolower($user->first_name)) . " " . ucwords(strtolower($user->last_name)) ?></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                
               </div>
             </div>
           </div>

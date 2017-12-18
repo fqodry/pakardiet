@@ -109,6 +109,7 @@ class IsiForm extends CI_Controller {
 
 			(float)$beratbadan = $this->input->post('beratbadan');
 			$data['beratbadan'] = $beratbadan;
+			$data['beratbadan_lbs'] = (int)$beratbadan*2.2046226218;
 			(float)$tinggibadan = $this->input->post('tinggibadan');
 			$data['tinggibadan'] = $tinggibadan;
 			(int)$usia = $this->input->post('usia');
@@ -141,15 +142,15 @@ class IsiForm extends CI_Controller {
 			// KETERANGAN2
 			$bb_ket = "tidak ada keterangan";
 			if($imt < 18.5){
-				$bb_ket = "Berat Badan Kurang";
+				$bb_ket = '<span style="color: aqua;">Berat Badan Kurang</span>';
 			}elseif($imt >= 18.5 && $imt <= 24.9) {
-				$bb_ket = "Berat Badan Ideal";
+				$bb_ket = '<span style="color: green;">Berat Badan Ideal</span>';
 			}elseif($imt >= 25 && $imt <= 29.9) {
-				$bb_ket = "Berat Badan Lebih";
+				$bb_ket = '<span style="color: yellow;">Berat Badan Lebih</span>';
 			}elseif($imt >= 30 && $imt <=39.9) {
-				$bb_ket = "Gemuk";
+				$bb_ket = '<span style="color: orange;">Gemuk</span>';
 			}else{
-				$bb_ket = "Sangat Gemuk";
+				$bb_ket = '<span style="color: red;">Sangat Gemuk</span>';
 			}
 			$data['bb_ket'] = $bb_ket;
 
