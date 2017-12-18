@@ -49,6 +49,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div style="text-align: right;">
+                        <small><em>*data input on: <?php echo $hist_formpakar->created_date; ?></em></small>
+                    </div>
                 </div>
               </div>
             </div>

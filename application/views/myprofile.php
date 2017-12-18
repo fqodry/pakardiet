@@ -2,38 +2,85 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="row">
-              <div class="col-md-6 col-md-offset-3">
+              <div class="col-md-10 col-md-offset-1">
                 <?php 
                     $flash_message = $this->session->flashdata('handler_msg');
                     if( ! empty($flash_message) ) {
                     echo '<p class="alert alert-'. $flash_message['type'] .'" id="flash_message"><b>'. $flash_message['msg'] .'</b></p>';
                     }
                 ?>
-                
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <th colspan="2" style="text-align: center;">My Profile</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>User ID</strong></td>
-                                <td><?php echo $user->user_id ?></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Username</strong></td>
-                                <td><?php echo $user->username ?></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Name</strong></td>
-                                <td><?php echo ucwords(strtolower($user->first_name)) . " " . ucwords(strtolower($user->last_name)) ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#profile">Profile</a></li>
+                    <li><a data-toggle="tab" href="#userhist">History</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="profile" class="tab-pane fade in active">
+                        <br>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" style="text-align: center;">My Profile</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>User ID</strong></td>
+                                        <td><?php echo $user->user_id ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Username</strong></td>
+                                        <td><?php echo $user->username ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Name</strong></td>
+                                        <td><?php echo ucwords(strtolower($user->first_name)) . " " . ucwords(strtolower($user->last_name)) ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="userhist" class="tab-pane fade in">
+                        <h1>User History Input Data</h1>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Username</th>
+                                        <th>Berat Badan</th>
+                                        <th>Tinggi Badan</th>
+                                        <th>Usia</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>Aktifitas</th>
+                                        <th>Input Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $num=1; foreach($hist_formpakar as $hist): 
+                                        $user = $this->Default_md->getSingle("tb_user",array("user_id"=>$hist->user_id));
+                                        $aktifitas = $this->Default_md->getSingle("m_pekerjaan",array("job_id"=>$hist->job));
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $num ?></td>
+                                        <td><?php echo $user->username ?></td>
+                                        <td><?php echo $hist->berat_badan." kg" ?></td>
+                                        <td><?php echo $hist->tinggi_badan. " cm" ?></td>
+                                        <td><?php echo $hist->usia. " thn" ?></td>
+                                        <td><?php echo ($hist->jenis_kelamin == "M") ? "Laki-laki" : "Perempuan" ?></td>
+                                        <td><?php echo $aktifitas->job_name ?></td>
+                                        <td><?php echo $hist->created_date ?></td>
+                                    </tr>
+                                    <?php $num++; endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr>
+                        <h1>History Grafik</h1>
+                        <small><em>COMING SOON!</em></small>
+                    </div>
                 </div>
-                
               </div>
             </div>
           </div>

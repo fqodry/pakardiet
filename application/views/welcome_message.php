@@ -1,14 +1,45 @@
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
-            <div class="row">
+            <div class="row top_tiles">
                 <?php 
                     $flash_message = $this->session->flashdata('handler_msg');
                     if( ! empty($flash_message) ) {
                     echo '<p class="alert alert-'. $flash_message['type'] .'" id="flash_message"><b>'. $flash_message['msg'] .'</b></p>';
                     }
                 ?>
-                <h1>Hello World</h1>
+                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-users"></i></div>
+                        <div class="count">179</div>
+                        <h3>User Sign ups</h3>
+                        <p>Jumlah user yang Sign Up.</p>
+                    </div>
+                </div>
+                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-comments-o"></i></div>
+                        <div class="count">179</div>
+                        <h3>New Sign ups</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                    </div>
+                </div>
+                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
+                        <div class="count">179</div>
+                        <h3>New Sign ups</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                    </div>
+                </div>
+                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-check-square-o"></i></div>
+                        <div class="count">179</div>
+                        <h3>New Sign ups</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                    </div>
+                </div>
             </div>
           </div>
         </div>

@@ -178,6 +178,8 @@ class IsiForm extends CI_Controller {
 			);
 			$this->Default_md->add('tb_hist_formpakar_result',$data_result);
 
+			$data['hist_formpakar'] = $this->Default_md->getSingle("tb_hist_formpakar",array('histform_id'=>$histform_id));
+
 			$this->load->view('template/header',$data);
 			$this->load->view('hitungkalori',$data);
 		}
