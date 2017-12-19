@@ -9,7 +9,6 @@ class Default_md extends CI_Model {
 	function getAll($tablename,$conditions=array()){
 		$this->db->select('*');
 		$this->db->where($conditions);
-		$this->db->order_by("id","desc");
 		$query=$this->db->get($tablename);
 		if($query->num_rows() > 0){
 			return $query->result();

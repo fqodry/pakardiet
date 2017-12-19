@@ -32,6 +32,70 @@ class MyProfile extends CI_Controller {
 			$hist_formpakar = $this->Default_md->getAll("tb_hist_formpakar",array('user_id'=>$data['user_id']));
 			$data['hist_formpakar'] = $hist_formpakar;
 
+			// User Chart
+			$this->load->model('Hist_formpakar_md');
+			$line_chart = '
+			<script>
+		        if ($("#lineChart").length ){   
+		            
+		          var ctx = document.getElementById("lineChart");
+		          var lineChart = new Chart(ctx, {
+		            type: "line",
+		            data: {
+		              labels: 
+		              	[';
+
+		    foreach($hist_formpakar as $hist_form){
+		    	$create = date_create($hist_form->created_date);
+		    	$format = date_format($create,"d F Y");
+		    	$line_chart .= '"'.$format.'",';
+			}
+
+			$line_chart .= '
+						],
+		              datasets: [{
+		                label: "Berat Saya",
+		                backgroundColor: "rgba(38, 185, 154, 0.31)",
+		                borderColor: "rgba(38, 185, 154, 0.7)",
+		                pointBorderColor: "rgba(38, 185, 154, 0.7)",
+		                pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+		                pointHoverBackgroundColor: "#fff",
+		                pointHoverBorderColor: "rgba(220,220,220,1)",
+		                pointBorderWidth: 1,
+		                data: 
+		                	[';
+
+		    foreach($hist_formpakar as $hist_form){
+		    	$line_chart .= (float)$hist_form->berat_badan.',';
+			}
+
+    		$line_chart .= ']
+		              }, {
+		                label: "Berat Ideal Saya",
+		                backgroundColor: "rgba(3, 88, 106, 0.3)",
+		                borderColor: "rgba(3, 88, 106, 0.70)",
+		                pointBorderColor: "rgba(3, 88, 106, 0.70)",
+		                pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+		                pointHoverBackgroundColor: "#fff",
+		                pointHoverBorderColor: "rgba(151,187,205,1)",
+		                pointBorderWidth: 1,
+		                data: 
+		                	[';
+
+		    foreach($hist_formpakar as $hist_form){
+		    	$hist_formpakar_res = $this->Default_md->getSingle('tb_hist_formpakar_result',array('histform_id'=>$hist_form->histform_id));
+		    	$line_chart .= (float)$hist_formpakar_res->bb_ideal.',';
+			}
+
+        	$line_chart .= ']
+		              }]
+		            },
+		          });
+		        }
+		    </script>
+			';
+			$data['line_chart'] = $line_chart;
+
 			$this->load->view('template/header',$data);
 			$this->load->view('myprofile',$data);
 		} else {

@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div id="userhist" class="tab-pane fade in">
-                        <h1>User History Input Data</h1>
+                        <h1>History Data</h1>
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered">
                                 <thead>
@@ -78,7 +78,13 @@
                         </div>
                         <hr>
                         <h1>History Grafik</h1>
-                        <small><em>COMING SOON!</em></small>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_content">
+                                    <canvas id="lineChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
               </div>
@@ -136,7 +142,8 @@
     <script src="assets/vendors/js/daterangepicker.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="assets/js/custom.min.js"></script>
+    <script src="assets/js/custom.js"></script>
 
+    <?php echo $line_chart; ?>
   </body>
 </html>
