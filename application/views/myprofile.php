@@ -37,6 +37,10 @@
                                         <td><strong>Name</strong></td>
                                         <td><?php echo ucwords(strtolower($user->first_name)) . " " . ucwords(strtolower($user->last_name)) ?></td>
                                     </tr>
+                                    <tr>
+                                        <td><strong>Joined Date</strong></td>
+                                        <td><?php echo $user->created_date ?></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -48,7 +52,7 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Username</th>
+                                        <!-- <th>Username</th> -->
                                         <th>Berat Badan</th>
                                         <th>Tinggi Badan</th>
                                         <th>Usia</th>
@@ -64,7 +68,7 @@
                                     ?>
                                     <tr>
                                         <td><?php echo $num ?></td>
-                                        <td><?php echo $user->username ?></td>
+                                        <!-- <td><?php //echo $user->username ?></td> -->
                                         <td><?php echo $hist->berat_badan." kg" ?></td>
                                         <td><?php echo $hist->tinggi_badan. " cm" ?></td>
                                         <td><?php echo $hist->usia. " thn" ?></td>
