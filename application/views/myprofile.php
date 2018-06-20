@@ -62,9 +62,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $num=1; foreach($hist_formpakar as $hist): 
-                                        $user = $this->Default_md->getSingle("tb_user",array("user_id"=>$hist->user_id));
-                                        $aktifitas = $this->Default_md->getSingle("m_pekerjaan",array("job_id"=>$hist->job));
+                                    <?php 
+                                        if(!empty($hist_formpakar)){
+                                            $num=1; 
+                                            foreach($hist_formpakar as $hist): 
+                                            $user = $this->Default_md->getSingle("tb_user",array("user_id"=>$hist->user_id));
+                                            $aktifitas = $this->Default_md->getSingle("m_pekerjaan",array("job_id"=>$hist->job));
                                     ?>
                                     <tr>
                                         <td><?php echo $num ?></td>
@@ -76,7 +79,10 @@
                                         <td><?php echo $aktifitas->job_name ?></td>
                                         <td><?php echo $hist->created_date ?></td>
                                     </tr>
-                                    <?php $num++; endforeach; ?>
+                                    <?php $num++; endforeach; 
+                                        } else {
+                                            echo '<tr><td colspan="7">no history data.</td></tr>';
+                                        } ?>
                                 </tbody>
                             </table>
                         </div>

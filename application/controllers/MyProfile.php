@@ -45,11 +45,13 @@ class MyProfile extends CI_Controller {
 		              labels: 
 		              	[';
 
-		    foreach($hist_formpakar as $hist_form){
-		    	$create = date_create($hist_form->created_date);
-		    	$format = date_format($create,"d F Y");
-		    	$line_chart .= '"'.$format.'",';
-			}
+		   if(!empty($hist_formpakar)){
+		   	foreach($hist_formpakar as $hist_form){
+			    	$create = date_create($hist_form->created_date);
+			    	$format = date_format($create,"d F Y");
+			    	$line_chart .= '"'.$format.'",';
+				}
+		   }
 
 			$line_chart .= '
 						],
@@ -65,9 +67,11 @@ class MyProfile extends CI_Controller {
 		                data: 
 		                	[';
 
-		    foreach($hist_formpakar as $hist_form){
-		    	$line_chart .= (float)$hist_form->berat_badan.',';
-			}
+		   if(!empty($hist_formpakar)){
+		   	foreach($hist_formpakar as $hist_form){
+			    	$line_chart .= (float)$hist_form->berat_badan.',';
+				}
+		   }
 
     		$line_chart .= ']
 		              }, {
@@ -82,10 +86,12 @@ class MyProfile extends CI_Controller {
 		                data: 
 		                	[';
 
-		    foreach($hist_formpakar as $hist_form){
-		    	$hist_formpakar_res = $this->Default_md->getSingle('tb_hist_formpakar_result',array('histform_id'=>$hist_form->histform_id));
-		    	$line_chart .= (float)$hist_formpakar_res->bb_ideal.',';
-			}
+		   if(!empty($hist_formpakar)){
+		   	foreach($hist_formpakar as $hist_form){
+			    	$hist_formpakar_res = $this->Default_md->getSingle('tb_hist_formpakar_result',array('histform_id'=>$hist_form->histform_id));
+			    	$line_chart .= (float)$hist_formpakar_res->bb_ideal.',';
+				}
+		   }
 
         	$line_chart .= ']
 		              }]
