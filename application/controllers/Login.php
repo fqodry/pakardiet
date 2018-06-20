@@ -134,6 +134,26 @@ class Login extends CI_Controller {
 				'rules'	=>	'trim|required|max_length[100]|xss_clean'
 			),
 			array(
+				'field'	=> 'reg_gender',
+				'label'	=> 'Jenis Kelamin',
+				'rules'	=>	'trim|required|xss_clean'
+			),
+			array(
+				'field'	=> 'reg_weight',
+				'label'	=> 'Berat Badan',
+				'rules'	=>	'trim|required|numeric|xss_clean'
+			),
+			array(
+				'field'	=> 'reg_height',
+				'label'	=> 'Tinggi Badan',
+				'rules'	=>	'trim|required|numeric|xss_clean'
+			),
+			array(
+				'field'	=> 'reg_age',
+				'label'	=> 'Usia',
+				'rules'	=>	'trim|required|numeric|xss_clean'
+			),
+			array(
 				'field'	=>	'reg_password',
 				'label'	=> 'Password',
 				'rules'	=> 'trim|required|min_length[3]|xss_clean'
@@ -165,6 +185,10 @@ class Login extends CI_Controller {
 			$password = $this->bcrypt->hash_password($this->input->post('reg_password'));
 			$firstname = $this->input->post('reg_firstname');
 			$lastname = $this->input->post('reg_lastname');
+			$gender = $this->input->post('reg_gender');
+			$weight = $this->input->post('reg_weight');
+			$height = $this->input->post('reg_height');
+			$age = $this->input->post('reg_age');
 			$data_user = array(
 				'user_id'=>$user_id,
 				'username'=>$username,
@@ -172,8 +196,17 @@ class Login extends CI_Controller {
 				'first_name'=>$firstname,
 				'last_name'=>$lastname
 			);
+
+			$data_user_detail = array(
+				'user_id'=>$user_id,
+				'gender'=>$gender,
+				'weight'=>$weight,
+				'height'=>$height,
+				'age'=>$age
+			);
 			$this->Default_md->add('tb_user',$data_user);
 			$this->Default_md->add('tb_ref_user_role',array('user_id'=>$user_id, 'role_code'=>'ROLE_USER'));
+			$this->Default_md->add('tb_user_detail',$data_user_detail);
 
 			// set flashdata
 			$flash_msg = array(

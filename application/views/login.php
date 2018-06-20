@@ -91,6 +91,26 @@
                 <input type="text" class="form-control" name="reg_lastname" placeholder="Last Name" value="<?php echo set_value('reg_lastname'); ?>" required />
               </div>
               <div>
+                <?php echo form_error('reg_gender'); ?>
+                <select class="form-control" name="reg_gender" id="reg_gender" required style="margin-bottom: 20px;">
+                  <option value="">Pilih Jenis Kelamin</option>
+                  <option value="M">Laki-laki</option>
+                  <option value="F">Perempuan</option>
+                </select>
+              </div>
+              <div>
+                <?php echo form_error('reg_weight'); ?>
+                <input type="number" class="form-control" name="reg_weight" placeholder="Berat Badan (kg)" value="<?php echo set_value('reg_weight'); ?>" required style="margin-bottom: 20px;" />
+              </div>
+              <div>
+                <?php echo form_error('reg_height'); ?>
+                <input type="number" class="form-control" name="reg_height" placeholder="Tinggi Badan (cm)" value="<?php echo set_value('reg_height'); ?>" required style="margin-bottom: 20px;" />
+              </div>
+              <div>
+                <?php echo form_error('reg_age'); ?>
+                <input type="number" class="form-control" name="reg_age" placeholder="Usia (thn)" value="<?php echo set_value('reg_age'); ?>" required style="margin-bottom: 20px;" />
+              </div>
+              <div>
                 <?php echo form_error('reg_password'); ?>
                 <input type="password" class="form-control" name="reg_password" placeholder="Password" value="<?php echo set_value('reg_password'); ?>" required />
               </div>
