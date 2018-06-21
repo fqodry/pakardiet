@@ -92,12 +92,6 @@ class Login extends CI_Controller {
 					// add user data in session
 					$this->session->set_userdata('logged_in',$session_data);
 
-					// set flashdata
-					$flash_msg = array(
-						'msg'		=> "<i class='fa fa-check'></i>&nbsp;Log In Successful",
-						'type'	=> "success"
-					);
-					$this->session->set_flashdata('handler_msg',$flash_msg);
 					redirect(base_url().'welcome');
 				}
 			} else {
@@ -230,7 +224,7 @@ class Login extends CI_Controller {
 
 		// set flashdata
 		$flash_msg = array(
-			'msg'		=> "<i class='fa fa-check'></i>&nbsp;Logout successful",
+			'msg'		=> "<i class='fa fa-check'></i>&nbsp;You're Logged Out",
 			'type'	=> "success"
 		);
 		$this->session->set_flashdata('handler_msg',$flash_msg);

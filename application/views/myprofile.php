@@ -34,11 +34,27 @@
                                         <td><?php echo $user->username ?></td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Name</strong></td>
+                                        <td><strong>Nama</strong></td>
                                         <td><?php echo ucwords(strtolower($user->first_name)) . " " . ucwords(strtolower($user->last_name)) ?></td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Joined Date</strong></td>
+                                        <td><strong>Jenis Kelamin</strong></td>
+                                        <td><?php echo ($user_detail->gender == "M") ? "Male" : "Female" ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Usia</strong></td>
+                                        <td><?php echo $user_detail->age . " tahun" ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Berat Badan</strong></td>
+                                        <td><?php echo $user_detail->weight . " kg" ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tinggi Badan</strong></td>
+                                        <td><?php echo $user_detail->height . " cm" ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tanggal Join</strong></td>
                                         <td><?php echo $user->created_date ?></td>
                                     </tr>
                                 </tbody>

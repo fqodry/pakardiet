@@ -35,7 +35,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-check"></i> <span style="color:lightgreen;"><strong style="color:lightsalmon;">Pakar</strong>diet</span></a>
+              <a href="welcome" class="site_title"><i class="fa fa-check"></i> <span style="color:lightgreen;"><strong style="color:lightsalmon;">Pakar</strong>diet</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -68,7 +68,7 @@
                   </li> -->
                   <li><a href=""><i class="fa fa-home"></i> Home</a></li>
                   <li><a href="myprofile"><i class="fa fa-user"></i> My Profile</a></li>
-                  <li><a href="isiform"><i class="fa fa-wpforms"></i> Hitung Kebutuhan Kalori </a></li>
+                  <!--<li><a href="isiform"><i class="fa fa-wpforms"></i> Hitung Kebutuhan Kalori </a></li>-->
                   <?php if(!empty($admin_zone) && $admin_zone === true){ ?>
                   <li><a><i class="fa fa-database"></i> Master Data <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">

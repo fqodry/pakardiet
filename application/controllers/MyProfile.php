@@ -29,6 +29,8 @@ class MyProfile extends CI_Controller {
 
 			$user = $this->Default_md->getSingle("tb_user",array('user_id'=>$data['user_id']));
 			$data['user'] = $user;
+			$user_detail = $this->Default_md->getSingle("tb_user_detail",array('user_id'=>$data['user_id']));
+			$data['user_detail'] = $user_detail;
 			$hist_formpakar = $this->Default_md->getAll("tb_hist_formpakar",array('user_id'=>$data['user_id']));
 			$data['hist_formpakar'] = $hist_formpakar;
 

@@ -9,7 +9,7 @@
                     echo '<p class="alert alert-'. $flash_message['type'] .'" id="flash_message"><b>'. $flash_message['msg'] .'</b></p>';
                     }
                 ?>
-                <h3>Form Input Sistem Pakar</h3><br/>
+                <h3>Form Hitung Kebutuhan Kalori</h3><br/>
                 <p class="col-md-12">Hai <strong><?php echo ucwords(strtolower($first_name." ".$last_name)); ?></strong>! Silahkan isi form berikut untuk mengetahui IMT (Indeks Masa Tubuh), Berat Badan Ideal, dan menu anjuran dari Pakar Gizi terkemuka <strong>Bp. Ujang Marujang, S.Tr.Gz</strong>. Silahkan mencoba!</p>
                 <form action="<?php echo $form_pakar; ?>" method="post">
                     <div class="form-group">
