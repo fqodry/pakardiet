@@ -69,7 +69,7 @@
                     </ul>
                   </li> -->
                   <li><a href=""><i class="fa fa-home"></i> Home</a></li>
-                  <li><a href="myprofile"><i class="fa fa-user"></i> My Profile</a></li>
+                  <li><a href="MyProfile"><i class="fa fa-user"></i> My Profile</a></li>
                   <!-- <li><a href="isiform"><i class="fa fa-wpforms"></i> Hitung Kebutuhan Kalori </a></li> -->
                   <?php if(!empty($admin_zone) && $admin_zone === true){ ?>
                   <li><a><i class="fa fa-database"></i> Master Data <span class="fa fa-chevron-down"></span></a>
@@ -120,7 +120,7 @@
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="myprofile"> My Profile</a></li>
+                    <li><a href="MyProfile"> My Profile</a></li>
                     <li><a href="login/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>

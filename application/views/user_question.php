@@ -2,7 +2,7 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="row">
-              <div class="col-md-6 col-xs-8 col-md-offset-3 col-xs-offset-2">
+              <div class="col-md-6 col-xs-10 col-md-offset-3 col-xs-offset-1">
                 <?php 
                     $flash_message = $this->session->flashdata('handler_msg');
                     if( ! empty($flash_message) ) {

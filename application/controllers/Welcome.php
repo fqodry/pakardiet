@@ -31,7 +31,7 @@ class Welcome extends CI_Controller {
 
 			$this->load->view('template/header',$data);
 			if(!empty($userData) && $userData->is_answered == 0){
-				redirect(base_url().'userquestion');
+				redirect(base_url().'UserQuestion');
 			} else {
 				$this->load->view('welcome_message',$data);
 			}

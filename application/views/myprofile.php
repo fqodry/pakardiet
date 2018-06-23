@@ -17,7 +17,7 @@
                 <div class="tab-content">
                     <div id="profile" class="tab-pane fade in active">
                         <br>
-                        <a href="myprofile/editProfile" class="btn btn-warning"><i class="fa fa-pencil"></i>&emsp;Update</a>
+                        <a href="MyProfile/editProfile" class="btn btn-warning"><i class="fa fa-pencil"></i>&emsp;Update</a>
                         <br>
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered">

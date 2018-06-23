@@ -197,7 +197,7 @@ class MyProfile extends CI_Controller {
 					'type'	=> "danger"
 				);
 				$this->session->set_flashdata('handler_msg',$flash_msg);
-				redirect(base_url().'isiform');
+				redirect(base_url().'IsiForm');
 			} else {
 				// set flashdata
 				$flash_msg = array(
@@ -206,7 +206,7 @@ class MyProfile extends CI_Controller {
 				);
 				$this->session->set_flashdata('handler_msg',$flash_msg);
 
-				redirect(base_url().'isiform');
+				redirect(base_url().'IsiForm');
 			}
 		} else {
 			$data['title'] = "Pakar Diet - Dashboard";
@@ -269,7 +269,7 @@ class MyProfile extends CI_Controller {
 				'type'	=> "success"
 			);
 			$this->session->set_flashdata('handler_msg',$flash_msg);
-			redirect(base_url().'myprofile');
+			redirect(base_url().'MyProfile');
 		}
 	}
 }
