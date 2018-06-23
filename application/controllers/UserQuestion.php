@@ -32,6 +32,20 @@ class UserQuestion extends CI_Controller {
 			$data['jobs'] = $this->Default_md->getAll('m_pekerjaan');
 			$data['the_question'] = $this->Default_md->getSingle('m_kegiatan', array('is_parent'=>1));
 
+			//flag alert for update profile
+			$today = strtotime("now");
+			$lastUpdated = strtotime($userData->modified_date);
+			$lastUpdated2w = strtotime("+2 weeks", $lastUpdated);
+
+			if($today > $lastUpdated2w){
+				// set flashdata
+				$flash_msg = array(
+					'msg'		=> "<i class='fa fa-close'></i>&nbsp;Oops, silahkan update profile Anda (Berat Badan, Tinggi Badan, dan Usia) <a href='myprofile/editProfile'>Click Here</a>",
+					'type'	=> "danger"
+				);
+				$this->session->set_flashdata('handler_msg',$flash_msg);
+			}
+
 			$this->load->view('template/header',$data);
 			$this->load->view('user_question',$data);
 		} else {
