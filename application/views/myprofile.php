@@ -83,7 +83,7 @@
                                             $num=1; 
                                             foreach($hist_formpakar as $hist): 
                                             $user = $this->Default_md->getSingle("tb_user",array("user_id"=>$hist->user_id));
-                                            $aktifitas = $this->Default_md->getSingle("m_pekerjaan",array("job_id"=>$hist->job));
+                                            $aktifitas = $this->Default_md->getSingle("m_aktifitas",array("act_id"=>$hist->aktifitas));
                                     ?>
                                     <tr>
                                         <td><?php echo $num ?></td>
@@ -92,7 +92,7 @@
                                         <td><?php echo $hist->tinggi_badan. " cm" ?></td>
                                         <td><?php echo $hist->usia. " thn" ?></td>
                                         <td><?php echo ($hist->jenis_kelamin == "M") ? "Laki-laki" : "Perempuan" ?></td>
-                                        <td><?php echo $aktifitas->job_name ?></td>
+                                        <td><?php echo $aktifitas->act_name ?></td>
                                         <td><?php echo $hist->created_date ?></td>
                                     </tr>
                                     <?php $num++; endforeach; 

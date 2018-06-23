@@ -18,6 +18,8 @@
     <link href="assets/vendors/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="assets/vendors/css/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="assets/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
     <link href="assets/vendors/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
@@ -68,7 +70,7 @@
                   </li> -->
                   <li><a href=""><i class="fa fa-home"></i> Home</a></li>
                   <li><a href="myprofile"><i class="fa fa-user"></i> My Profile</a></li>
-                  <!--<li><a href="isiform"><i class="fa fa-wpforms"></i> Hitung Kebutuhan Kalori </a></li>-->
+                  <!-- <li><a href="isiform"><i class="fa fa-wpforms"></i> Hitung Kebutuhan Kalori </a></li> -->
                   <?php if(!empty($admin_zone) && $admin_zone === true){ ?>
                   <li><a><i class="fa fa-database"></i> Master Data <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">

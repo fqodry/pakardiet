@@ -35,6 +35,10 @@
                                 <td colspan="2" class="text-center"><?php echo number_format($tinggibadan,0,",",".")." cm" ?></td>
                             </tr>
                             <tr>
+                                <td><strong>Aktifitas:</strong></td>
+                                <td colspan="2" class="text-center"><?php echo $aktifitas->act_name . " (".$aktifitas->description.")"; ?></td>
+                            </tr>
+                            <tr>
                                 <td><strong>BB Ideal:</strong></td>
                                 <td><?php echo number_format($bbideal,1,",",".")." kg (".number_format($bbideal_lbs,2,",",".")." lbs)" ?></td>
                                 <td rowspan="3" style="vertical-align: middle; text-align: center;"><strong><?php echo $bb_ket; ?></strong></td>

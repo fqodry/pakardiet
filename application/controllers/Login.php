@@ -198,9 +198,20 @@ class Login extends CI_Controller {
 				'height'=>$height,
 				'age'=>$age
 			);
+
+			$data_hist_user_detail = array(
+				'user_id'=>$user_id,
+				'gender'=>$gender,
+				'weight'=>$weight,
+				'height'=>$height,
+				'age'=>$age,
+				'created_by'=>'system',
+				'created_date'=>date('Y-m-d H:i:s')
+			);
 			$this->Default_md->add('tb_user',$data_user);
 			$this->Default_md->add('tb_ref_user_role',array('user_id'=>$user_id, 'role_code'=>'ROLE_USER'));
 			$this->Default_md->add('tb_user_detail',$data_user_detail);
+			$this->Default_md->add('tb_hist_user_detail',$data_hist_user_detail);
 
 			// set flashdata
 			$flash_msg = array(

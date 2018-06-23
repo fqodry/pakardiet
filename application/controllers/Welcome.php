@@ -5,6 +5,7 @@ class Welcome extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('Default_md');
 	}
 
 	public function index(){
@@ -26,8 +27,14 @@ class Welcome extends CI_Controller {
 				$data['admin_zone'] = false;
 			}
 
+			$userData = $this->Default_md->getSingle('tb_user', array('user_id'=>$data['user_id']));
+
 			$this->load->view('template/header',$data);
-			$this->load->view('welcome_message',$data);
+			if(!empty($userData) && $userData->is_answered == 0){
+				redirect(base_url().'userquestion');
+			} else {
+				$this->load->view('welcome_message',$data);
+			}
 		} else {
 			// set flashdata
 			$flash_msg = array(
