@@ -102,13 +102,13 @@
 
         function getFinalRule(k_in, k_from, userResp){
             $.ajax({
-                url: base_url + 'userquestion/jxGetFinalRule',
+                url: base_url + 'UserQuestion/jxGetFinalRule',
                 method: 'POST',
                 dataType: 'json',
                 data: { kodeIn: k_in, kodeFrom: k_from, userResponse: userResp },
                 success: function(data){
                     console.log(data);
-                    window.location = base_url + 'userquestion/userBaseQuestionHandler/'+data['userWeight']+'/'+data['userHeight']+'/'+data['userAge']+'/'+data['userGender']+'/'+data['userActivity'];
+                    window.location = base_url + 'UserQuestion/userBaseQuestionHandler/'+data['userWeight']+'/'+data['userHeight']+'/'+data['userAge']+'/'+data['userGender']+'/'+data['userActivity'];
                 },
                 error: function(jqXHR, textStatus, errorThrown){
                     console.log("Ajax Request Failed!");
@@ -126,7 +126,7 @@
                 console.log(kodeIn + " - " + kodeFrom + " - " + userResponse);
 
                 $.ajax({
-                    url: base_url + 'userquestion/userAnswerResponseHandler',
+                    url: base_url + 'UserQuestion/userAnswerResponseHandler',
                     method: 'POST',
                     dataType: 'json',
                     data: { kodeIn: kodeIn, kodeFrom: kodeFrom, userResponse: userResponse },

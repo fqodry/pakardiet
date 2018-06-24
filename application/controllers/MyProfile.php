@@ -138,7 +138,7 @@ class MyProfile extends CI_Controller {
 			$user_detail = $this->Default_md->getSingle("tb_user_detail",array('user_id'=>$data['user_id']));
 			$data['user_detail'] = $user_detail;
 
-			$data['formEditProfile'] = base_url() . "myprofile/editProfileHandler";
+			$data['formEditProfile'] = base_url() . "MyProfile/editProfileHandler";
 
 			$this->load->view('template/header',$data);
 			$this->load->view('editprofile',$data);

@@ -57,6 +57,22 @@
                         <small><em>*data input on: <?php echo $hist_formpakar->created_date; ?></em></small>
                     </div>
                 </div>
+
+                <h3>Menu Anjuran</h3><br/>
+                <p>Energi: <strong><?php echo $menuAnjuranEnergi ?></strong>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Protein: <strong><?php echo $menuAnjuranProtein ?></strong></p>
+                <p>Lemak: <strong><?php echo $menuAnjuranLemak ?></strong>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Karbohidrat: <strong><?php echo $menuAnjuranKarbo ?></strong></p>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Menu</th>
+                                <th>Porsi</th>
+                            </tr>
+                        </thead>
+                        <tbody><?php echo $menuAnjuran ?></tbody>
+                    </table>
+                </div>
               </div>
             </div>
           </div>
