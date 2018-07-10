@@ -22,6 +22,8 @@
     <link href="assets/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
     <link href="assets/vendors/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- jQuery UI -->
+    <link href="assets/vendors/css/jquery-ui.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="assets/vendors/vss/daterangepicker.css" rel="stylesheet">
     
@@ -74,11 +76,13 @@
                   <?php if(!empty($admin_zone) && $admin_zone === true){ ?>
                   <li><a><i class="fa fa-database"></i> Master Data <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="masterdata/golongan">Bahan Golongan</a></li>
-                      <li><a href="masterdata/kategori">Bahan Kategori</a></li>
-                      <li><a href="masterdata/userroles">User Roles</a></li>
+                      <!-- <li><a href="masterdata/golongan">Bahan Golongan</a></li>
+                      <li><a href="masterdata/kategori">Bahan Kategori</a></li> -->
+                      <li><a href="Masterdata/bahanMakanan">Bahan Makanan</a></li>
+                      <!-- <li><a href="masterdata/userroles">User Roles</a></li> -->
                     </ul>
                   </li>
+                  <li><a href="MenuAnjuran"><i class="fa fa-book"></i> Menu Anjuran</a></li>
                   <?php } ?>
                 </ul>
               </div>
