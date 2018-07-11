@@ -34,7 +34,11 @@ class UserQuestion extends CI_Controller {
 
 			//flag alert for update profile
 			$today = strtotime("now");
-			$lastUpdated = strtotime($userData->modified_date);
+			if(empty($userData->modified_date) || $userData->modified_date == null){
+				$lastUpdated = strtotime($userData->created_date);
+			}else{
+				$lastUpdated = strtotime($userData->modified_date);
+			}
 			$lastUpdated2w = strtotime("+2 weeks", $lastUpdated);
 
 			if($today > $lastUpdated2w){
@@ -113,236 +117,219 @@ class UserQuestion extends CI_Controller {
 		$menuAnjuranLemak = '0 gr';
 		$menuAnjuranKarbo = '0 gr';
 
-		if($kebutuhan_kalori >= 1000 && $kebutuhan_kalori <= 1200){
-			$menuAnjuranEnergi = '1137,5 kkal';
-			$menuAnjuranProtein = '40 gr';
-			$menuAnjuranLemak = '25 gr';
-			$menuAnjuranKarbo = '182 gr';
+		//Pengelompokan Kalori Kebutuhan Terhadap Kalori Anjuran
+		$kalAnjuranCode = 'K1100';
+		$listKaloriAnjuran = $this->Default_md->getAll("m_kalori_anjuran", array('is_enabled'=>1));
+		foreach($listKaloriAnjuran as $keyA=>$kal){
+			if($kebutuhan_kalori >= $kal->kalori_start && $kebutuhan_kalori <= $kal->kalori_end){
+				$kalAnjuranCode = $kal->kalori_code;
+				$kalAnjuranName = $kal->kalori_name;
+				$kalAnjuranValue = $kal->kalori;
+			}
+		}
+
+		$listMenuAnjuran = $this->Default_md->getAll("tb_ref_menu_anjuran",array('kalori_code'=>$kalAnjuranCode));
+
+		//Additional Info
+		$menuAnjuranEnergi = $kalAnjuranValue.' kkal';
+
+		if(empty($listMenuAnjuran)){
+			$menuAnjuran = 'Oops, menu anjuran untuk '.$kalAnjuranName.' belum di atur.';
+		}else{
 			$menuAnjuran = '';
-			$menuAnjuran .= '<tr><td rowspan="3">Pagi</td><td>Bubur Ayam</td><td>200 gr</td></tr>
-                            <tr><td>Lalapan Selada</td><td>Sekehendak</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>5 gr</td></tr>
+			$menuAnjuran .= '
+				<p>Energi: <strong>'.$menuAnjuranEnergi.'</strong>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Protein: <strong>'.$menuAnjuranProtein.'</strong></p>
+	         <p>Lemak: <strong>'.$menuAnjuranLemak.'</strong>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Karbohidrat: <strong>'.$menuAnjuranKarbo.'</strong></p>
+	         <hr>';
 
-                            <tr><td>Snack (Pk. 10.00)</td><td>Jambu Biji (tanpa gula)</td><td>-</td></tr>
+	      //====================================================== SENIN
+			$menuAnjuran .= '
+				<h2>Senin</h2>
+				<table class="table table-hover table-bordered">
+				  <thead>
+				      <tr>
+				          <th>Waktu</th>
+				          <th>Menu</th>
+				          <th>Porsi</th>
+				      </tr>
+				  </thead>
+				  <tbody>';
 
-                            <tr><td rowspan="6">Siang</td><td>Nasi Putih</td><td>100 gr</td></tr>
-                            <tr><td>Ikan Pindang</td><td>40 gr</td></tr>
-                            <tr><td>Orek Tempe</td><td>50 gr</td></tr>
-                            <tr><td>Sayur Asem</td><td>100 gr</td></tr>
-                            <tr><td>Pisang</td><td>50 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>5 gr</td></tr>
+			foreach($listMenuAnjuran as $anjuran){
+				if(strtolower($anjuran->hari) == 'senin'){
+					$menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+					$bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+					$menuAnjuran .= '<tr>';
+					$menuAnjuran .= '<td>'.$menuWaktu->waktu_name.'</td>';
+					$menuAnjuran .= '<td>'.$bahan->bahan_name.'</td><td>'.$bahan->urt.'</td></tr>';
+				}
+			}
+				      
+			$menuAnjuran .= '
+					</tbody>
+				</table><hr>';
 
-                            <tr><td>Snack (Pk. 16.00)</td><td>Puding Mangga</td><td>-</td></tr>
+			//====================================================== SELASA
+			$menuAnjuran .= '
+				<h2>Selasa</h2>
+				<table class="table table-hover table-bordered">
+				  <thead>
+				      <tr>
+				          <th>Waktu</th>
+				          <th>Menu</th>
+				          <th>Porsi</th>
+				      </tr>
+				  </thead>
+				  <tbody>';
 
-                            <tr><td rowspan="6">Malam</td><td>Nasi Putih</td><td>100 gr</td></tr>
-                            <tr><td>Ayam Bakar (Tanpa Kulit)</td><td>40 gr</td></tr>
-                            <tr><td>Pepes Tahu</td><td>110 gr</td></tr>
-                            <tr><td>Tumis Kangkung</td><td>100 gr</td></tr>
-                            <tr><td>Jeruk</td><td>100 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>5 gr</td></tr>';
-		} elseif($kebutuhan_kalori > 1200 && $kebutuhan_kalori <= 1400){
-			$menuAnjuranEnergi = '1300 kkal';
-			$menuAnjuranProtein = '49 gr';
-			$menuAnjuranLemak = '30 gr';
-			$menuAnjuranKarbo = '202 gr';
-			$menuAnjuran = '';
-			$menuAnjuran .= '<tr><td rowspan="4">Pagi</td><td>Nasi Putih</td><td>100 gr</td></tr>
-                            <tr><td>Telur Balado</td><td>55 gr</td></tr>
-                            <tr><td>Acar Timun Wortel</td><td>Sekehendak</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>5 gr</td></tr>
+			foreach($listMenuAnjuran as $anjuran){
+				if(strtolower($anjuran->hari) == 'selasa'){
+					$menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+					$bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+					$menuAnjuran .= '<tr>';
+					$menuAnjuran .= '<td>'.$menuWaktu->waktu_name.'</td>';
+					$menuAnjuran .= '<td>'.$bahan->bahan_name.'</td><td>'.$bahan->urt.'</td></tr>';
+				}
+			}
+				      
+			$menuAnjuran .= '
+					</tbody>
+				</table><hr>';
 
-                            <tr><td>Snack (Pk. 10.00)</td><td>Selada Buah</td><td>-</td></tr>
+			//====================================================== RABU
+			$menuAnjuran .= '
+				<h2>Rabu</h2>
+				<table class="table table-hover table-bordered">
+				  <thead>
+				      <tr>
+				          <th>Waktu</th>
+				          <th>Menu</th>
+				          <th>Porsi</th>
+				      </tr>
+				  </thead>
+				  <tbody>';
 
-                            <tr><td rowspan="6">Siang</td><td>Nasi Putih</td><td>100 gr</td></tr>
-                            <tr><td>Semur Ayam</td><td>40 gr</td></tr>
-                            <tr><td>Tumis Tempe Cabe Hijau</td><td>50 gr</td></tr>
-                            <tr><td>Sayur Sop</td><td>100 gr</td></tr>
-                            <tr><td>Pepaya</td><td>50 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>5 gr</td></tr>
+			foreach($listMenuAnjuran as $anjuran){
+				if(strtolower($anjuran->hari) == 'rabu'){
+					$menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+					$bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+					$menuAnjuran .= '<tr>';
+					$menuAnjuran .= '<td>'.$menuWaktu->waktu_name.'</td>';
+					$menuAnjuran .= '<td>'.$bahan->bahan_name.'</td><td>'.$bahan->urt.'</td></tr>';
+				}
+			}
+				      
+			$menuAnjuran .= '
+					</tbody>
+				</table><hr>';
 
-                            <tr><td>Snack (Pk. 16.00)</td><td>Puding Buah</td><td>1 ptg/cup</td></tr>
+			//====================================================== KAMIS
+			$menuAnjuran .= '
+				<h2>Kamis</h2>
+				<table class="table table-hover table-bordered">
+				  <thead>
+				      <tr>
+				          <th>Waktu</th>
+				          <th>Menu</th>
+				          <th>Porsi</th>
+				      </tr>
+				  </thead>
+				  <tbody>';
 
-                            <tr><td rowspan="6">Malam</td><td>Nasi Putih</td><td>100 gr</td></tr>
-                            <tr><td>Ikan Bakar Kecap</td><td>40 gr</td></tr>
-                            <tr><td>Pepes Jamur</td><td>110 gr</td></tr>
-                            <tr><td>Tumis Kacang Panjang</td><td>100 gr</td></tr>
-                            <tr><td>Jeruk</td><td>100 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>5 gr</td></tr>';
-		} elseif($kebutuhan_kalori > 1400 && $kebutuhan_kalori <= 1600){
-			$menuAnjuranEnergi = '1562,5 kkal';
-			$menuAnjuranProtein = '55,5 gr';
-			$menuAnjuranLemak = '36,5 gr';
-			$menuAnjuranKarbo = '245,5 gr';
-			$menuAnjuran = '';
-			$menuAnjuran .= '<tr><td rowspan="5">Pagi</td><td>Nasi Putih</td><td>100 gr</td></tr>
-                            <tr><td>Omelet</td><td>55 gr</td></tr>
-                            <tr><td>Kering Tempe</td><td>25 gr</td></tr>
-                            <tr><td>Sayur Sop</td><td>100 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>5 gr</td></tr>
+			foreach($listMenuAnjuran as $anjuran){
+				if(strtolower($anjuran->hari) == 'kamis'){
+					$menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+					$bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+					$menuAnjuran .= '<tr>';
+					$menuAnjuran .= '<td>'.$menuWaktu->waktu_name.'</td>';
+					$menuAnjuran .= '<td>'.$bahan->bahan_name.'</td><td>'.$bahan->urt.'</td></tr>';
+				}
+			}
+				      
+			$menuAnjuran .= '
+					</tbody>
+				</table><hr>';
 
-                            <tr><td>Snack (Pk. 10.00)</td><td>Setup Pisang</td><td>50 gr</td></tr>
+			//====================================================== JUMAT
+			$menuAnjuran .= '
+				<h2>Jumat</h2>
+				<table class="table table-hover table-bordered">
+				  <thead>
+				      <tr>
+				          <th>Waktu</th>
+				          <th>Menu</th>
+				          <th>Porsi</th>
+				      </tr>
+				  </thead>
+				  <tbody>';
 
-                            <tr><td rowspan="6">Siang</td><td>Nasi Putih</td><td>200 gr</td></tr>
-                            <tr><td>Pepes Ikan</td><td>40 gr</td></tr>
-                            <tr><td>Tumis Kacang Merah</td><td>20 gr</td></tr>
-                            <tr><td>Sayur Asem</td><td>100 gr</td></tr>
-                            <tr><td>Melon</td><td>50 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>10 gr</td></tr>
+			foreach($listMenuAnjuran as $anjuran){
+				if(strtolower($anjuran->hari) == 'jumat'){
+					$menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+					$bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+					$menuAnjuran .= '<tr>';
+					$menuAnjuran .= '<td>'.$menuWaktu->waktu_name.'</td>';
+					$menuAnjuran .= '<td>'.$bahan->bahan_name.'</td><td>'.$bahan->urt.'</td></tr>';
+				}
+			}
+				      
+			$menuAnjuran .= '
+					</tbody>
+				</table><hr>';
 
-                            <tr><td>Snack (Pk. 16.00)</td><td>Jus Melon Stroberi</td><td>1 gls</td></tr>
+			//====================================================== SABTU
+			$menuAnjuran .= '
+				<h2>Sabtu</h2>
+				<table class="table table-hover table-bordered">
+				  <thead>
+				      <tr>
+				          <th>Waktu</th>
+				          <th>Menu</th>
+				          <th>Porsi</th>
+				      </tr>
+				  </thead>
+				  <tbody>';
 
-                            <tr><td rowspan="6">Malam</td><td>Nasi Putih</td><td>100 gr</td></tr>
-                            <tr><td>Ayam Cabe Hijau</td><td>40 gr</td></tr>
-                            <tr><td>Sop Tofu</td><td>110 gr</td></tr>
-                            <tr><td>Tumis Brokoli</td><td>100 gr</td></tr>
-                            <tr><td>Pisang</td><td>110 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>5 gr</td></tr>';
-		} elseif($kebutuhan_kalori > 1600 && $kebutuhan_kalori <= 1800){
-			$menuAnjuranEnergi = '1787,5 kkal';
-			$menuAnjuranProtein = '59,5 gr';
-			$menuAnjuranLemak = '41,5 gr';
-			$menuAnjuranKarbo = '285,5 gr';
-			$menuAnjuran = '';
-			$menuAnjuran .= '<tr><td rowspan="5">Pagi</td><td>Nasi Putih</td><td>100 gr</td></tr>
-                            <tr><td>Fuyunghai</td><td>55 gr</td></tr>
-                            <tr><td>Tahu Asam Manis</td><td>55 gr</td></tr>
-                            <tr><td>Acar Timun</td><td>Sekehendak</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>5 gr</td></tr>
+			foreach($listMenuAnjuran as $anjuran){
+				if(strtolower($anjuran->hari) == 'sabtu'){
+					$menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+					$bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+					$menuAnjuran .= '<tr>';
+					$menuAnjuran .= '<td>'.$menuWaktu->waktu_name.'</td>';
+					$menuAnjuran .= '<td>'.$bahan->bahan_name.'</td><td>'.$bahan->urt.'</td></tr>';
+				}
+			}
+				      
+			$menuAnjuran .= '
+					</tbody>
+				</table><hr>';
 
-                            <tr><td>Snack (Pk. 10.00)</td><td>Pisang Bakar Cokelat</td><td>50 gr</td></tr>
+			//====================================================== AHAD
+			$menuAnjuran .= '
+				<h2>Minggu</h2>
+				<table class="table table-hover table-bordered">
+				  <thead>
+				      <tr>
+				          <th>Waktu</th>
+				          <th>Menu</th>
+				          <th>Porsi</th>
+				      </tr>
+				  </thead>
+				  <tbody>';
 
-                            <tr><td rowspan="6">Siang</td><td>Nasi Putih</td><td>150 gr</td></tr>
-                            <tr><td>Kembung Pesmol</td><td>40 gr</td></tr>
-                            <tr><td>Tahu Bacem</td><td>110 gr</td></tr>
-                            <tr><td>Sayur Asem</td><td>100 gr</td></tr>
-                            <tr><td>Pisang</td><td>50 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>10 gr</td></tr>
-
-                            <tr><td>Snack (Pk. 16.00)</td><td>Kroket Sayuran</td><td>1 ptg</td></tr>
-
-                            <tr><td rowspan="6">Malam</td><td>Nasi Putih</td><td>150 gr</td></tr>
-                            <tr><td>Ayam Saus Tomat</td><td>40 gr</td></tr>
-                            <tr><td>Tahu Bumbu Kuning</td><td>110 gr</td></tr>
-                            <tr><td>Tumis Sawi Jagung</td><td>100 gr</td></tr>
-                            <tr><td>Jeruk</td><td>110 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>5 gr</td></tr>';
-		} elseif($kebutuhan_kalori > 1800 && $kebutuhan_kalori <= 2000){
-			$menuAnjuranEnergi = '1975 kkal';
-			$menuAnjuranProtein = '67 gr';
-			$menuAnjuranLemak = '58,5 gr';
-			$menuAnjuranKarbo = '272 gr';
-			$menuAnjuran = '';
-			$menuAnjuran .= '<tr><td rowspan="5">Pagi</td><td>Nasi Uduk</td><td>150 gr</td></tr>
-                            <tr><td>Telur Dadar</td><td>55 gr</td></tr>
-                            <tr><td>Semur Tahu</td><td>110 gr</td></tr>
-                            <tr><td>Lalapan</td><td>Sekehendak</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>10 gr</td></tr>
-
-                            <tr><td>Snack (Pk. 10.00)</td><td>Bubur Kacang Hijau</td><td>20 gr</td></tr>
-
-                            <tr><td rowspan="6">Siang</td><td>Nasi Putih</td><td>150 gr</td></tr>
-                            <tr><td>Kakap Asam Manis</td><td>40 gr</td></tr>
-                            <tr><td>Sop Tofu</td><td>110 gr</td></tr>
-                            <tr><td>Cah Brokoli</td><td>100 gr</td></tr>
-                            <tr><td>Semangka</td><td>150 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>10 gr</td></tr>
-
-                            <tr><td>Snack (Pk. 16.00)</td><td>Risoles</td><td>1 ptg</td></tr>
-
-                            <tr><td rowspan="6">Malam</td><td>Nasi Putih</td><td>150 gr</td></tr>
-                            <tr><td>Ayam Teriyaki</td><td>40 gr</td></tr>
-                            <tr><td>Tahu Saus Tomat</td><td>110 gr</td></tr>
-                            <tr><td>Stup Buncis + Wortel</td><td>100 gr</td></tr>
-                            <tr><td>Apel</td><td>100 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>10 gr</td></tr>';
-		} elseif($kebutuhan_kalori > 2000 && $kebutuhan_kalori <= 2200){
-			$menuAnjuranEnergi = '2112,5 kkal';
-			$menuAnjuranProtein = '69 gr';
-			$menuAnjuranLemak = '63,5 gr';
-			$menuAnjuranKarbo = '292 gr';
-			$menuAnjuran = '';
-			$menuAnjuran .= '<tr><td rowspan="5">Pagi</td><td>Nasi Goreng</td><td>150 gr</td></tr>
-                            <tr><td>Telur Ceplok</td><td>55 gr</td></tr>
-                            <tr><td>Kering Tempe</td><td>50 gr</td></tr>
-                            <tr><td>Acar Timun</td><td>Sekehendak</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>10 gr</td></tr>
-
-                            <tr><td>Snack (Pk. 10.00)</td><td>Bubur Sum Sum</td><td>1 cup sedang</td></tr>
-
-                            <tr><td rowspan="6">Siang</td><td>Nasi Putih</td><td>250 gr</td></tr>
-                            <tr><td>Kakap Tempura</td><td>40 gr</td></tr>
-                            <tr><td>Tahu Saus Tomat</td><td>110 gr</td></tr>
-                            <tr><td>Sop Kimlo</td><td>100 gr</td></tr>
-                            <tr><td>Jus Jambu Biji</td><td>90 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>10 gr</td></tr>
-
-                            <tr><td>Snack (Pk. 16.00)</td><td>Panada</td><td>1 buah</td></tr>
-
-                            <tr><td rowspan="6">Malam</td><td>Nasi Putih</td><td>150 gr</td></tr>
-                            <tr><td>Empal Daging</td><td>35 gr</td></tr>
-                            <tr><td>Pepes Tahu</td><td>110 gr</td></tr>
-                            <tr><td>Sayur Asem</td><td>100 gr</td></tr>
-                            <tr><td>Melon</td><td>180 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>10 gr</td></tr>';
-		} elseif($kebutuhan_kalori > 2200 && $kebutuhan_kalori <= 2400){
-			$menuAnjuranEnergi = '2330 kkal';
-			$menuAnjuranProtein = '76,5 gr';
-			$menuAnjuranLemak = '64,5 gr';
-			$menuAnjuranKarbo = '337 gr';
-			$menuAnjuran = '';
-			$menuAnjuran .= '<tr><td rowspan="5">Pagi</td><td>Nasi Goreng</td><td>150 gr</td></tr>
-                            <tr><td>Telur Orak Arik</td><td>55 gr</td></tr>
-                            <tr><td>Tempe Goreng Tepung</td><td>50 gr</td></tr>
-                            <tr><td>Lalapan</td><td>Sekehendak</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>10 gr</td></tr>
-
-                            <tr><td>Snack (Pk. 10.00)</td><td>Banana Milkshake</td><td>1 gelas</td></tr>
-
-                            <tr><td rowspan="6">Siang</td><td>Nasi Putih</td><td>250 gr</td></tr>
-                            <tr><td>Rendang Daging</td><td>35 gr</td></tr>
-                            <tr><td>Martabak Tahu</td><td>110 gr</td></tr>
-                            <tr><td>Sayur Sop</td><td>100 gr</td></tr>
-                            <tr><td>Jeruk</td><td>50 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>10 gr</td></tr>
-
-                            <tr><td>Snack (Pk. 16.00)</td><td>Macaroni Schotel</td><td>1 ptg</td></tr>
-
-                            <tr><td rowspan="6">Malam</td><td>Nasi Putih</td><td>250 gr</td></tr>
-                            <tr><td>Semur Ayam</td><td>40 gr</td></tr>
-                            <tr><td>Krecek</td><td>20 gr</td></tr>
-                            <tr><td>Tumis Sawi Jagung</td><td>100 gr</td></tr>
-                            <tr><td>Pear</td><td>85 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>10 gr</td></tr>';
-		} elseif($kebutuhan_kalori > 2400 && $kebutuhan_kalori <= 2600) {
-			$menuAnjuranEnergi = '2517,5 kkal';
-			$menuAnjuranProtein = '79,5 gr';
-			$menuAnjuranLemak = '74,5 gr';
-			$menuAnjuranKarbo = '355 gr';
-			$menuAnjuran = '';
-			$menuAnjuran .= '<tr><td rowspan="5">Pagi</td><td>Nasi Goreng</td><td>200 gr</td></tr>
-                            <tr><td>Telur Ceplok</td><td>55 gr</td></tr>
-                            <tr><td>Kering Tempe</td><td>50 gr</td></tr>
-                            <tr><td>Lalapan</td><td>Sekehendak</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>10 gr</td></tr>
-
-                            <tr><td rowspan="2">Snack (Pk. 10.00)</td><td>Makaroni Schotel</td><td>1 ptg/cup</td></tr>
-                            <tr><td>Susu Sapi</td><td>200 gr</td></tr>
-
-                            <tr><td rowspan="6">Siang</td><td>Nasi Putih</td><td>250 gr</td></tr>
-                            <tr><td>Opor Ayam</td><td>40 gr</td></tr>
-                            <tr><td>Tahu Bacem</td><td>110 gr</td></tr>
-                            <tr><td>Tumis Labu Siam Jagung</td><td>100 gr</td></tr>
-                            <tr><td>Pisang</td><td>50 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>15 gr</td></tr>
-
-                            <tr><td>Snack (Pk. 16.00)</td><td>Bolu Karamel</td><td>1 ptg sdg</td></tr>
-
-                            <tr><td rowspan="6">Malam</td><td>Nasi Putih</td><td>250 gr</td></tr>
-                            <tr><td>Dendeng Balado</td><td>35 gr</td></tr>
-                            <tr><td>Rolade Tempe</td><td>100 gr</td></tr>
-                            <tr><td>Bening Bayam</td><td>100 gr</td></tr>
-                            <tr><td>Pepaya</td><td>110 gr</td></tr>
-                            <tr><td>Minyak Kelapa</td><td>15 gr</td></tr>';
+			foreach($listMenuAnjuran as $anjuran){
+				if(strtolower($anjuran->hari) == 'ahad'){
+					$menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+					$bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+					$menuAnjuran .= '<tr>';
+					$menuAnjuran .= '<td>'.$menuWaktu->waktu_name.'</td>';
+					$menuAnjuran .= '<td>'.$bahan->bahan_name.'</td><td>'.$bahan->urt.'</td></tr>';
+				}
+			}
+				      
+			$menuAnjuran .= '
+					</tbody>
+				</table><hr>';
 		}
 
 		$data['menuAnjuran'] = $menuAnjuran;
