@@ -34,6 +34,9 @@ class MyProfile extends CI_Controller {
 			$data['user_detail'] = $user_detail;
 			$hist_formpakar = $this->Default_md->getAll("tb_hist_formpakar",array('user_id'=>$data['user_id']));
 			$data['hist_formpakar'] = $hist_formpakar;
+			$user_menus = $this->Default_md->getAll("tb_ref_menu_anjuran",array('kalori_code'=>$user_detail->kalori_anjuran_code));
+			$data['user_menus'] = $user_menus;
+
 
 			// User Chart
 			$this->load->model('Hist_formpakar_md');

@@ -44,7 +44,7 @@ class UserQuestion extends CI_Controller {
 			if($today > $lastUpdated2w){
 				// set flashdata
 				$flash_msg = array(
-					'msg'		=> "<i class='fa fa-close'></i>&nbsp;Oops, silahkan update profile Anda (Berat Badan, Tinggi Badan, dan Usia) <a href='myprofile/editProfile'>Click Here</a>",
+					'msg'		=> "<i class='fa fa-close'></i>&nbsp;Oops, silahkan update profile Anda (Berat Badan, Tinggi Badan, dan Usia) <a href='MyProfile/editProfile'>Click Here</a>",
 					'type'	=> "danger"
 				);
 				$this->session->set_flashdata('handler_msg',$flash_msg);
@@ -127,6 +127,16 @@ class UserQuestion extends CI_Controller {
 				$kalAnjuranValue = $kal->kalori;
 			}
 		}
+
+		//add kalori anjuran code to user detail
+		$data_user_kalori = array('kalori_anjuran_code'=>$kalAnjuranCode);
+		$dataUserDetail = $this->Default_md->getSingle('tb_user_detail',array('user_id'=>$data['user_id']));
+		if(empty($dataUserDetail->kalori_anjuran_code)){
+			$this->Default_md->add('tb_user_detail',$data_user_kalori);
+		}else{
+			$this->Default_md->edit('tb_user_detail',array('user_id'=>$data['user_id']),$data_user_kalori);
+		}
+		
 
 		$listMenuAnjuran = $this->Default_md->getAll("tb_ref_menu_anjuran",array('kalori_code'=>$kalAnjuranCode));
 

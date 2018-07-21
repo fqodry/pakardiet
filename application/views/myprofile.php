@@ -13,6 +13,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#profile">Profile</a></li>
                     <li><a data-toggle="tab" href="#userhist">History</a></li>
+                    <li><a data-toggle="tab" href="#usermenuanj">Menu Anjuran</a></li>
                 </ul>
                 <div class="tab-content">
                     <div id="profile" class="tab-pane fade in active">
@@ -113,6 +114,179 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div id="usermenuanj" class="tab-pane fade in">
+                        <?php if(empty($user_menus)){
+                            echo "Oops, there is no menu for you.";
+                        } else { ?>
+                        <h2>Senin</h2>
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Waktu</th>
+                                    <th>Menu</th>
+                                    <th>Porsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($user_menus as $anjuran){
+                                    if(strtolower($anjuran->hari) == 'senin'){
+                                        $menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+                                        $bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+                                        echo '<tr>';
+                                            echo '<td>'.$menuWaktu->waktu_name.'</td>';
+                                            echo '<td>'.$bahan->bahan_name.'</td>
+                                            <td>'.$bahan->urt.'</td>
+                                        </tr>';
+                                    }
+                                } ?>
+                            </tbody>
+                        </table>
+
+                        <h2>Selasa</h2>
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Waktu</th>
+                                    <th>Menu</th>
+                                    <th>Porsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($user_menus as $anjuran){
+                                    if(strtolower($anjuran->hari) == 'selasa'){
+                                        $menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+                                        $bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+                                        echo '<tr>';
+                                            echo '<td>'.$menuWaktu->waktu_name.'</td>';
+                                            echo '<td>'.$bahan->bahan_name.'</td>
+                                            <td>'.$bahan->urt.'</td>
+                                        </tr>';
+                                    }
+                                } ?>
+                            </tbody>
+                        </table>
+
+                        <h2>Rabu</h2>
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Waktu</th>
+                                    <th>Menu</th>
+                                    <th>Porsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($user_menus as $anjuran){
+                                    if(strtolower($anjuran->hari) == 'rabu'){
+                                        $menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+                                        $bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+                                        echo '<tr>';
+                                            echo '<td>'.$menuWaktu->waktu_name.'</td>';
+                                            echo '<td>'.$bahan->bahan_name.'</td>
+                                            <td>'.$bahan->urt.'</td>
+                                        </tr>';
+                                    }
+                                } ?>
+                            </tbody>
+                        </table>
+
+                        <h2>Kamis</h2>
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Waktu</th>
+                                    <th>Menu</th>
+                                    <th>Porsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($user_menus as $anjuran){
+                                    if(strtolower($anjuran->hari) == 'kamis'){
+                                        $menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+                                        $bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+                                        echo '<tr>';
+                                            echo '<td>'.$menuWaktu->waktu_name.'</td>';
+                                            echo '<td>'.$bahan->bahan_name.'</td>
+                                            <td>'.$bahan->urt.'</td>
+                                        </tr>';
+                                    }
+                                } ?>
+                            </tbody>
+                        </table>
+
+                        <h2>Jumat</h2>
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Waktu</th>
+                                    <th>Menu</th>
+                                    <th>Porsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($user_menus as $anjuran){
+                                    if(strtolower($anjuran->hari) == 'jumat'){
+                                        $menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+                                        $bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+                                        echo '<tr>';
+                                            echo '<td>'.$menuWaktu->waktu_name.'</td>';
+                                            echo '<td>'.$bahan->bahan_name.'</td>
+                                            <td>'.$bahan->urt.'</td>
+                                        </tr>';
+                                    }
+                                } ?>
+                            </tbody>
+                        </table>
+
+                        <h2>Sabtu</h2>
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Waktu</th>
+                                    <th>Menu</th>
+                                    <th>Porsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($user_menus as $anjuran){
+                                    if(strtolower($anjuran->hari) == 'sabtu'){
+                                        $menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+                                        $bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+                                        echo '<tr>';
+                                            echo '<td>'.$menuWaktu->waktu_name.'</td>';
+                                            echo '<td>'.$bahan->bahan_name.'</td>
+                                            <td>'.$bahan->urt.'</td>
+                                        </tr>';
+                                    }
+                                } ?>
+                            </tbody>
+                        </table>
+
+                        <h2>Minggu</h2>
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Waktu</th>
+                                    <th>Menu</th>
+                                    <th>Porsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($user_menus as $anjuran){
+                                    if(strtolower($anjuran->hari) == 'ahad'){
+                                        $menuWaktu = $this->Default_md->getSingle("m_menu_waktu",array('waktu_code'=>$anjuran->waktu_code));
+                                        $bahan = $this->Default_md->getSingle("tb_bahan",array('bahan_code'=>$anjuran->bahan_code));
+                                        echo '<tr>';
+                                            echo '<td>'.$menuWaktu->waktu_name.'</td>';
+                                            echo '<td>'.$bahan->bahan_name.'</td>
+                                            <td>'.$bahan->urt.'</td>
+                                        </tr>';
+                                    }
+                                } ?>
+                            </tbody>
+                        </table>
+                        <?php } ?>
                     </div>
                 </div>
               </div>
