@@ -10,7 +10,44 @@
                     }
                 ?>
 
-                <h1>Oops, this page is under construction!</h1>
+                <h1>List Bahan Makanan</h1>
+                <hr>
+                <a class="btn btn-primary" href="Masterdata/bahanMakananAdd"><i class="fa fa-plus"></i>&nbsp;Add</a>
+                <br><br>
+                <?php if(empty($bahan_olahan)){
+                    echo "Oops, tidak ada data bahan nih.";
+                }else{ ?>
+                    <table class="table table-condensed table-hover table-bordered dataTable">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Kode Bahan</th>
+                                <th>Nama Bahan</th>
+                                <th>URT</th>
+                                <th>Berat</th>
+                                <th>Kalori</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php $num = 1;
+                        foreach($bahan_olahan as $bahan): ?>
+                            <tr>
+                                <td><?php echo $num; ?></td>
+                                <td><?php echo $bahan->bahan_code ?></td>
+                                <td><?php echo $bahan->bahan_name ?></td>
+                                <td><?php echo $bahan->urt ?></td>
+                                <td><?php echo $bahan->weight." gr" ?></td>
+                                <td><?php echo $bahan->calories." kkal" ?></td>
+                                <td align="center">
+                                    <a class="btn btn-warning btn-xs" href="Masterdata/bahanMakananEdit/<?php echo $bahan->id ?>"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
+                                    <a class="btn btn-danger btn-xs" href="Masterdata/bahanMakananDelete/<?php echo $bahan->id ?>"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+                                </td>
+                            </tr>
+                        <?php $num++; endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php } ?>
               </div>
             </div>
           </div>
@@ -64,10 +101,15 @@
     <!-- bootstrap-daterangepicker -->
     <script src="assets/vendors/js/moment.min.js"></script>
     <script src="assets/vendors/js/daterangepicker.js"></script>
+    <!-- DataTables -->
+    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="assets/js/custom.js"></script>
-
-    <?php echo $line_chart; ?>
+    <script>
+    $(document).ready( function () {
+        $('.dataTable').DataTable();
+    });
+    </script>
   </body>
 </html>

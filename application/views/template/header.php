@@ -26,6 +26,8 @@
     <link href="assets/vendors/css/jquery-ui.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="assets/vendors/vss/daterangepicker.css" rel="stylesheet">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     
     <!-- Custom Theme Style -->
     <link href="assets/css/custom.min.css" rel="stylesheet">
