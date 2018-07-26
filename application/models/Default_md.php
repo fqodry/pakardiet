@@ -42,4 +42,15 @@ class Default_md extends CI_Model {
 		$this->db->where($conditions);
 		$this->db->delete($tablename);
 	}
+
+	function maxId($tablename) {
+		$this->db->select_max('id');
+		$this->db->from($tablename);
+		$query=$this->db->get();
+		if($query->num_rows() > 0) {
+			return $query->row();
+		} else {
+			return false;
+		}
+	}
 }

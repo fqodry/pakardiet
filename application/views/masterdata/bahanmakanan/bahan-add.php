@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <label for="bahanCode" class="control-label col-md-3">Kode Bahan <span class="required">*</span></label>
                         <div class="col-md-3">
-                            <input type="text" class="form-control" id="bahanCode" name="bahanCode" placeholder="Kode Bahan" required readonly />
+                            <input type="text" class="form-control" id="bahanCode" name="bahanCode" placeholder="Kode Bahan" value="<?php echo set_value('bahan_code',$kode_bahan) ?>" required readonly />
                         </div>
                     </div>
                     <div class="form-group">
@@ -49,13 +49,41 @@
                             <input type="number" class="form-control" id="bahanCalories" name="bahanCalories" placeholder="Kalori Bahan" required />
                         </div>
                         <div class="col-md-3">
-                            <small><em>*satuan dalam gram (kkal)</em></small>
+                            <small><em>*satuan dalam kilo-kalori (kkal)</em></small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bahanProtein" class="control-label col-md-3">Protein</label>
+                        <div class="col-md-3">
+                            <input type="number" class="form-control" id="bahanProtein" name="bahanProtein" placeholder="Protein Bahan" />
+                        </div>
+                        <div class="col-md-3">
+                            <small><em>*satuan dalam gram (gr)</em></small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bahanFat" class="control-label col-md-3">Lemak</label>
+                        <div class="col-md-3">
+                            <input type="number" class="form-control" id="bahanFat" name="bahanFat" placeholder="Lemak Bahan" />
+                        </div>
+                        <div class="col-md-3">
+                            <small><em>*satuan dalam gram (gr)</em></small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bahanCarbo" class="control-label col-md-3">Karbohidrat</label>
+                        <div class="col-md-3">
+                            <input type="number" class="form-control" id="bahanCarbo" name="bahanCarbo" placeholder="Karbohidrat Bahan" />
+                        </div>
+                        <div class="col-md-3">
+                            <small><em>*satuan dalam gram (gr)</em></small>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="btnSubmit" class="control-label col-md-3">&nbsp;</label>
                         <div class="col-md-8">
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp;Submit</button>
+                            <button type="button" class="btn btn-default" onclick="history.go(-1);"><i class="fa fa-undo"></i>&nbsp;Back</button>
                         </div>
                     </div>
                 </form>
