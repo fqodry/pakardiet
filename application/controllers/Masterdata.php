@@ -162,4 +162,125 @@ class Masterdata extends CI_Controller {
 			redirect(base_url().'login');
 		}
 	}
+
+	function bahanMakananEdit($id){
+		if(isset($this->session->userdata['logged_in'])) {
+			$data['title'] = "Pakar Diet - My Profile";
+			$data['user_id'] = $this->session->userdata['logged_in']['user_id'];
+			$data['username'] = $this->session->userdata['logged_in']['username'];
+			$data['first_name'] = $this->session->userdata['logged_in']['first_name'];
+			$data['last_name'] = $this->session->userdata['logged_in']['last_name'];
+			$user_role = $this->session->userdata['logged_in']['user_role'];
+
+			if(!empty($user_role) && $user_role == 'ROLE_ADMIN') {
+				$data['admin_zone'] = true;
+			} else {
+				$data['admin_zone'] = false;
+			}
+
+			if(empty($id)){
+				echo "Error: missing 1 parameter id.";
+			}else{
+				$user = $this->Default_md->getSingle("tb_user",array('user_id'=>$data['user_id']));
+				$data['user'] = $user;
+				$user_detail = $this->Default_md->getSingle("tb_user_detail",array('user_id'=>$data['user_id']));
+				$data['user_detail'] = $user_detail;
+				$data['formEdit'] = base_url()."Masterdata/bahanMakananEditHandler";
+
+				$data['bahan_detail'] = $this->Default_md->getSingle("tb_bahan", array('id'=>$id, 'is_enabled'=>1));
+
+				$this->load->view('template/header',$data);
+				$this->load->view('masterdata/bahanmakanan/bahan-edit',$data);
+			}
+		} else {
+			$flash_msg = array(
+				'msg'	=> "<i class='fa fa-close'></i>&nbsp;Error, please login first",
+				'type'	=> "danger"
+			);
+			$this->session->set_flashdata('handler_msg',$flash_msg);
+
+			redirect(base_url().'login');
+		}
+	}
+
+	function bahanMakananEditHandler() {
+		if(isset($this->session->userdata['logged_in'])) {
+			$data['title'] = "Pakar Diet - My Profile";
+			$data['user_id'] = $this->session->userdata['logged_in']['user_id'];
+			$data['username'] = $this->session->userdata['logged_in']['username'];
+			$data['first_name'] = $this->session->userdata['logged_in']['first_name'];
+			$data['last_name'] = $this->session->userdata['logged_in']['last_name'];
+			$user_role = $this->session->userdata['logged_in']['user_role'];
+
+			if(!empty($user_role) && $user_role == 'ROLE_ADMIN') {
+				$data['admin_zone'] = true;
+			} else {
+				$data['admin_zone'] = false;
+			}
+
+			$kode_bahan = $this->input->post('bahanCode');
+			$nama_bahan = $this->input->post('bahanName');
+			$urt_bahan = $this->input->post('bahanUrt');
+			$berat_bahan = $this->input->post('bahanWeight');
+			$kalori_bahan = $this->input->post('bahanCalories');
+			$protein_bahan = $this->input->post('bahanProtein');
+			$lemak_bahan = $this->input->post('bahanFat');
+			$karbo_bahan = $this->input->post('bahanCarbo');
+
+			if(empty($kode_bahan) || empty($nama_bahan) || empty($urt_bahan) || empty($berat_bahan) || empty($kalori_bahan)){
+				$flash_msg = array(
+					'msg'		=> "<i class='fa fa-close'></i>&nbsp;Oops, tolong isi semua field yang wajib diisi.",
+					'type'	=> "danger"
+				);
+				$this->session->set_flashdata('handler_msg',$flash_msg);
+
+				redirect(base_url().'Masterdata/bahanMakananEdit');
+			}else{
+				$data_bahan = array(
+					'bahan_name' => $nama_bahan,
+					'urt' => $urt_bahan,
+					'weight' => $berat_bahan,
+					'calories' => $kalori_bahan,
+					'protein' => $protein_bahan,
+					'fat' => $lemak_bahan,
+					'carbo' => $karbo_bahan,
+					'modified_by' => $data['username'],
+					'modified_date' => date('Y-m-d H:i:s')
+				);
+				$bahan_detail = $this->Default_md->getSingle("tb_bahan", array('is_enabled'=>1, 'bahan_code'=>$kode_bahan));
+				if(empty($bahan_detail)){
+					$this->Default_md->add("tb_bahan", $data_bahan);
+				}else{
+					$this->Default_md->edit("tb_bahan", array('bahan_code'=>$kode_bahan), $data_bahan);
+				}
+
+				$flash_msg = array(
+					'msg'		=> "<i class='fa fa-check'></i>&nbsp;Sukses Mengubah Data Bahan Makanan.",
+					'type'	=> "success"
+				);
+				$this->session->set_flashdata('handler_msg',$flash_msg);
+
+				redirect(base_url().'Masterdata/bahanMakanan');
+			}
+		} else {
+			$flash_msg = array(
+				'msg'	=> "<i class='fa fa-close'></i>&nbsp;Error, please login first",
+				'type'	=> "danger"
+			);
+			$this->session->set_flashdata('handler_msg',$flash_msg);
+
+			redirect(base_url().'login');
+		}
+	}
+
+	function bahanMakananDeleteHandler($id){
+		$result = array();
+		if(empty($id)){
+			$result = array('result'=>false, 'message'=>'Oops, missing 1 parameter id.');
+		}else{
+			$this->Default_md->delete("tb_bahan", array('id'=>$id));
+			$result = array('result'=>true, 'message'=>'Sukses menghapus data bahan makanan.');
+		}
+		echo json_encode($result);
+	}
 }

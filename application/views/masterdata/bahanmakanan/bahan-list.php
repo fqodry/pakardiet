@@ -41,7 +41,7 @@
                                 <td><?php echo $bahan->calories." kkal" ?></td>
                                 <td align="center">
                                     <a class="btn btn-warning btn-xs" href="Masterdata/bahanMakananEdit/<?php echo $bahan->id ?>"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
-                                    <a class="btn btn-danger btn-xs" href="Masterdata/bahanMakananDelete/<?php echo $bahan->id ?>"><i class="fa fa-trash"></i>&nbsp;Delete</a>
+                                    <a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="confirmDelete(<?php echo $bahan->id ?>)"><i class="fa fa-trash"></i>&nbsp;Delete</a>
                                 </td>
                             </tr>
                         <?php $num++; endforeach; ?>
@@ -107,9 +107,32 @@
     <!-- Custom Theme Scripts -->
     <script src="assets/js/custom.js"></script>
     <script>
+    var base_url = '<?php echo base_url() ?>';
     $(document).ready( function () {
         $('.dataTable').DataTable();
     });
+
+    function confirmDelete(id) {
+        if(confirm("Apa Anda yakin ingin delete record ini?")){
+            $.ajax({
+                url: base_url + "Masterdata/bahanMakananDeleteHandler/" + id,
+                method: 'post',
+                dataType: 'json',
+                success: function(data, textStatus, jqXHR){
+                    if(data.result){
+                        window.location = base_url + "Masterdata/bahanMakanan";
+                    }else{
+                        return false;
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    console.log("Error: Ajax Request Failed!");
+                }
+            });
+        }else{
+            return false;
+        }
+    }
     </script>
   </body>
 </html>
