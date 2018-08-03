@@ -131,7 +131,7 @@ class UserQuestion extends CI_Controller {
 		//add kalori anjuran code to user detail
 		$data_user_kalori = array('kalori_anjuran_code'=>$kalAnjuranCode);
 		$dataUserDetail = $this->Default_md->getSingle('tb_user_detail',array('user_id'=>$data['user_id']));
-		if(empty($dataUserDetail->kalori_anjuran_code)){
+		if(empty($dataUserDetail)){
 			$this->Default_md->add('tb_user_detail',$data_user_kalori);
 		}else{
 			$this->Default_md->edit('tb_user_detail',array('user_id'=>$data['user_id']),$data_user_kalori);
