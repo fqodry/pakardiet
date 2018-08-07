@@ -112,7 +112,7 @@ class UserQuestion extends CI_Controller {
 
 		//Penentuan Menu Anjuran Sesuai Kebutuhan Kalori
 		$menuAnjuran = '<tr><td colspan="4">no data.</td></tr>';
-		$menuAnjuranEnergi = '0 kkal';
+		$menuAnjuranEnergi = '0 kal';
 		$menuAnjuranProtein = '0 gr';
 		$menuAnjuranLemak = '0 gr';
 		$menuAnjuranKarbo = '0 gr';
@@ -141,7 +141,38 @@ class UserQuestion extends CI_Controller {
 		$listMenuAnjuran = $this->Default_md->getAll("tb_ref_menu_anjuran",array('kalori_code'=>$kalAnjuranCode));
 
 		//Additional Info
-		$menuAnjuranEnergi = $kalAnjuranValue.' kkal';
+		switch ($kalAnjuranValue) {
+			case 1100:
+				$menuAnjuranEnergi = '1137,5 kal';
+				$menuAnjuranProtein = '40 gr';
+				$menuAnjuranLemak = '25 gr';
+				$menuAnjuranKarbo = '182 gr';
+				break;
+			case 1500:
+				$menuAnjuranEnergi = '1525 kal';
+				$menuAnjuranProtein = '50 gr';
+				$menuAnjuranLemak = '30 gr';
+				$menuAnjuranKarbo = '232 gr';
+				break;
+			case 1900:
+				$menuAnjuranEnergi = '1975 kal';
+				$menuAnjuranProtein = '67 gr';
+				$menuAnjuranLemak = '58,5 gr';
+				$menuAnjuranKarbo = '272 gr';
+				break;
+			case 2200:
+				$menuAnjuranEnergi = '2237,5 kal';
+				$menuAnjuranProtein = '79 gr';
+				$menuAnjuranLemak = '60 gr';
+				$menuAnjuranKarbo = '313 gr';
+				break;
+			default:
+				$menuAnjuranEnergi = '0 kal';
+				$menuAnjuranProtein = '0 gr';
+				$menuAnjuranLemak = '0 gr';
+				$menuAnjuranKarbo = '0 gr';
+				break;
+		}
 
 		if(empty($listMenuAnjuran)){
 			$menuAnjuran = 'Oops, menu anjuran untuk '.$kalAnjuranName.' belum di atur.';

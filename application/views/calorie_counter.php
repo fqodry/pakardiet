@@ -36,7 +36,7 @@
                	<thead>
                		<tr>
                			<th>Berat (gr)</th>
-               			<th>Kalori (kkal)</th>
+               			<th>Kalori (kal)</th>
                			<th>Protein (gr)</th>
                			<th>Lemak (gr)</th>
                			<th>Karbohidrat</th>
@@ -45,7 +45,7 @@
                	<tbody>
                		<tr>
                			<td id="beratVal">0 gr</td>
-               			<td id="kaloriVal">0 kkal</td>
+               			<td id="kaloriVal">0 kal</td>
                			<td id="proteinVal">0 gr</td>
                			<td id="lemakVal">0 gr</td>
                			<td id="karboVal">0 gr</td>
@@ -149,7 +149,7 @@
 
 			   	setTimeout(function(){
 			   		$('#beratVal').html(totalBerat+" gr");
-			   		$('#kaloriVal').html(totalKalori+" kkal");
+			   		$('#kaloriVal').html(totalKalori+" kal");
 			   		$('#proteinVal').html(totalProtein+" gr");
 			   		$('#lemakVal').html(totalLemak+" gr");
 			   		$('#karboVal').html(totalKarbo+" gr");

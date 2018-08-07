@@ -38,7 +38,7 @@
                                 <td><?php echo $bahan->bahan_name ?></td>
                                 <td><?php echo $bahan->urt ?></td>
                                 <td><?php echo $bahan->weight." gr" ?></td>
-                                <td><?php echo $bahan->calories." kkal" ?></td>
+                                <td><?php echo $bahan->calories." kal" ?></td>
                                 <td align="center">
                                     <a class="btn btn-warning btn-xs" href="Masterdata/bahanMakananEdit/<?php echo $bahan->id ?>"><i class="fa fa-pencil"></i>&nbsp;Edit</a>
                                     <a class="btn btn-danger btn-xs" href="javascript:void(0)" onclick="confirmDelete(<?php echo $bahan->id ?>)"><i class="fa fa-trash"></i>&nbsp;Delete</a>

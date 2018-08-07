@@ -49,7 +49,7 @@
                             <input type="number" class="form-control" id="bahanCalories" name="bahanCalories" placeholder="Kalori Bahan" value="<?php echo set_value('bahanCalories',$bahan_detail->calories) ?>" required />
                         </div>
                         <div class="col-md-3">
-                            <small><em>*satuan dalam kilo-kalori (kkal)</em></small>
+                            <small><em>*satuan dalam kalori (kal)</em></small>
                         </div>
                     </div>
                     <div class="form-group">
